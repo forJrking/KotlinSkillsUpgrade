@@ -5,6 +5,7 @@ import com.example.kup.DataSize.Companion.gb
 import com.example.kup.DataSize.Companion.mb
 import com.example.kup.DataSize.Companion.pb
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -13,6 +14,12 @@ import org.junit.Test
  * @date: 2023/11/14 21:13
  */
 class DataSizeTest {
+    @Test
+    fun data_size_compare() {
+        assertTrue(600.mb > 0.5.gb)
+        assertTrue(512.mb == 0.5.gb)
+    }
+
     @Test
     fun data_size() {
         val dataSize = 512.mb
@@ -24,8 +31,8 @@ class DataSizeTest {
         println("format gb:${dataSize.toString(DataUnit.GIGABYTES)}")
         //  format gb:0.50GB
         // 单位换算
-        assertEquals(512 * 1024 * 1024, dataSize.inWholeBytes)
-        assertEquals(512 * 1024, dataSize.inWholeKilobytes)
+        assertEquals(536870912, dataSize.inWholeBytes)
+        assertEquals(524288, dataSize.inWholeKilobytes)
         assertEquals(512, dataSize.inWholeMegabytes)
         assertEquals(0, dataSize.inWholeGigabytes)
         assertEquals(0, dataSize.inWholeTerabytes)
@@ -34,7 +41,8 @@ class DataSizeTest {
 
     @Test()
     fun data_size1() {
-        val bytes = 1.bytes
+        val bytes = Long.MAX_VALUE.bytes
+        println("format pb:${bytes.toString(DataUnit.PETABYTES)}")
         val dataSize = 10.pb
         println("format bytes:$dataSize")
         //1125899906842600
@@ -45,7 +53,7 @@ class DataSizeTest {
 
     @Test(expected = ArithmeticException::class)
     fun data_size_overflow() {
-        10000.pb
+        8192.pb
     }
 
     @Test

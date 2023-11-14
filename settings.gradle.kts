@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ManageSpace"
+rootProject.name = "KotlinSkillsUpgrade"
 include(":app")
+include(":kup")
